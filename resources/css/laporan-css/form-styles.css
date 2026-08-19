@@ -1,0 +1,52 @@
+/* Tombol gradient */
+.btn-gradient {
+  background: linear-gradient(135deg, #0d6efd, #20c997);
+  transition: all 0.2s ease;
+}
+
+/* Hover → sedikit lebih terang */
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #3d85ff, #4fd1a6);
+}
+
+/* Klik → lebih gelap + efek tekan */
+.btn-gradient:active {
+  background: linear-gradient(135deg, #0b5ed7, #198754);
+  transform: scale(0.96);
+}
+
+/* Shadow bawaan untuk input dan select */
+.form-control,
+.form-select {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Hover efek */
+.form-control:hover,
+.form-select:hover {
+  transform: translateY(-1px);
+}
+
+/* Fokus + animasi pulse */
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  animation: pulse-shadow 1s infinite;
+}
+
+/* Animasi box-shadow pulse */
+@keyframes pulse-shadow {
+  0% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15),
+                0 0 0 0 rgba(13, 110, 253, 0.5);
+  }
+  50% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15),
+                0 0 0 8px rgba(13, 110, 253, 0);
+  }
+  100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15),
+                0 0 0 0 rgba(13, 110, 253, 0);
+  }
+}

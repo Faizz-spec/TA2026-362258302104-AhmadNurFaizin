@@ -1,0 +1,168 @@
+/* Global styles untuk Form Skrining PTM */
+
+:root {
+  --hijau: #00875a;
+  --hijau-muda: #e3fcef;
+  --hijau-dark: #005c3d;
+  --biru: #0052cc;
+  --biru-muda: #deebff;
+  --merah: #c0392b;
+  --merah-muda: #fff0ee;
+  --kuning: #ff8b00;
+  --kuning-muda: #fffae6;
+  --abu: #f4f5f7;
+  --abu-2: #dfe1e6;
+  --abu-3: #97a0af;
+  --teks: #172b4d;
+  --teks-2: #344563;
+  --teks-3: #5e6c84;
+  --putih: #ffffff;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #eef0f3;
+  color: var(--teks);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Input dan form elements */
+input[type='text'],
+input[type='date'],
+input[type='number'],
+select,
+textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid var(--abu-2);
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--teks);
+  background: var(--putih);
+  transition:
+    border 0.18s,
+    box-shadow 0.18s;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--hijau);
+  box-shadow: 0 0 0 3px rgba(0, 135, 90, 0.1);
+}
+
+input[readonly] {
+  background: var(--abu);
+  color: var(--teks-3);
+  cursor: not-allowed;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+/* Utility classes */
+.field-input {
+  width: 100% !important;
+}
+
+.addon {
+  padding: 9px 12px;
+  background: var(--abu);
+  border: 1.5px solid var(--abu-2);
+  font-size: 12px;
+  color: var(--teks-3);
+  white-space: nowrap;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--teks-2);
+}
+
+.hint {
+  font-size: 10.5px;
+  color: var(--teks-3);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid var(--abu);
+  margin: 16px 0;
+}
+
+/* Tag/Badge */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.tag-info {
+  background: var(--biru-muda);
+  color: var(--biru);
+}
+
+.tag-success {
+  background: var(--hijau-muda);
+  color: var(--hijau-dark);
+}
+
+.tag-warn {
+  background: var(--kuning-muda);
+  color: var(--kuning);
+}
+
+.tag-danger {
+  background: var(--merah-muda);
+  color: var(--merah);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--abu);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--abu-2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--abu-3);
+}

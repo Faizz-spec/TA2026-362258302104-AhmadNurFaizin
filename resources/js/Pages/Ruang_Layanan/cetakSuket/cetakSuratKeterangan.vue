@@ -1,0 +1,186 @@
+    <template>
+        <div class="container surat p-3">
+            <!-- Header -->
+            <div class="row align-items-center text-center mb-2">
+                <div class="col-2 text-end">
+                    <img :src="logoUrl" class="img-fluid" style="max-width:100px;" />
+                </div>
+                <div class="col-8">
+                    <h5 class="mb-0 fw-bold">PEMERINTAH KABUPATEN BANYUWANGI</h5>
+                    <h5 class="mb-0 fw-bold">DINAS KESEHATAN</h5>
+                    <h5 class="mb-0 fw-bold">{{ unit.nama_unit }}</h5>
+                    <p class="mb-0 small">{{ unit.alamat }}</p>
+                </div>
+                <div class="col-2"></div>
+            </div>
+
+            <hr class="border border-dark border-2 opacity-100 my-2" />
+
+            <!-- Judul Surat -->
+            <div class="text-center my-2">
+                <h6 class="fw-bold text-decoration-underline mb-1">SURAT KETERANGAN SEHAT</h6>
+                <p class="mb-0">Nomor {{ suket.no_surat }}</p>
+            </div>
+
+            <!-- Intro -->
+            <p class="mb-2">
+                Kami yang bertanda tangan di bawah ini Dokter {{ unit.nama_unit }}, Kecamatan
+                {{ Kecamatan.NAMA_KEC }}, Kabupaten Banyuwangi, dengan ini menerangkan bahwa:
+            </p>
+
+            <!-- Data Pasien -->
+            <table class="table table-borderless table-sm m-0">
+                <tbody>
+                    <tr>
+                        <td class="w-25">Nama</td>
+                        <td>: {{ dataPasien.NAMA_LGKP }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tempat, Tgl Lahir</td>
+                        <td>: {{ dataPasien.TMPT_LHR }}, {{ dataPasien.TGL_LHR }}</td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Kelamin</td>
+                        <td>: {{ dataPasien.JENIS_KLMIN == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Warga Negara</td>
+                        <td>: Indonesia</td>
+                    </tr>
+                    <tr>
+                        <td>Agama</td>
+                        <td>: {{ dataPasien.AGAMA }}</td>
+                    </tr>
+                    <tr>
+                        <td>Pekerjaan</td>
+                        <td>: {{ dataPasien.JENIS_PKRJN }}</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">Alamat</td>
+                        <td>
+                            : {{ dataPasien.ALAMAT }}<br />
+                            <table style="border-collapse: collapse;" class="ms-2">
+                                <tr>
+                                    <td style="width: 40%;" >RT/RW</td>
+                                    <td>: {{ dataPasien.NO_RT }}/{{ dataPasien.NO_RW }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%;">Desa/Kel</td>
+                                    <td>: {{ dataPasien.NAMA_KEL }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%;">Kecamatan</td>
+                                    <td>: {{ dataPasien.NAMA_KEC }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%;">Kabupaten</td>
+                                    <td>: {{ dataPasien.NAMA_KAB }}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">Keperluan</td>
+                        <td>: {{ suket.keperluan }}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <!-- Data Pemeriksaan -->
+            <h6 class="fw-bold text-decoration-underline ">Data Pemeriksaan</h6>
+            <div class="border border-dark rounded p-2">
+                <table class="table table-borderless table-sm mb-0">
+                    <tbody>
+                        <tr>
+                            <td class="w-25">Respiratory Rate</td>
+                            <td>: {{ dataAnamnesa.respRate }} /minute</td>
+                            <td class="w-25">Suhu</td>
+                            <td>: {{ dataAnamnesa.suhu }}°C</td>
+                        </tr>
+                        <tr>
+                            <td>Heart Rate</td>
+                            <td>: {{ dataAnamnesa.heartRate }} bpm</td>
+                            <td>Mata Ka/Ki</td>
+                            <td>: {{ suket.mata_ka_ki }}</td>
+                        </tr>
+                        <tr>
+                            <td>Tinggi Badan</td>
+                            <td>: {{ dataAnamnesa.tinggiBadan }} cm</td>
+                            <td>Telinga Ka/Ki</td>
+                            <td>: {{ suket.telinga_ka_ki }}</td>
+                        </tr>
+                        <tr>
+                            <td>Berat Badan</td>
+                            <td>: {{ dataAnamnesa.beratBadan }} kg</td>
+                            <td>Test Buta Warna</td>
+                            <td>: {{ suket.test_buta_warna }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sistole</td>
+                            <td>: {{ dataAnamnesa.sistole }} mmHg</td>
+                            <td>Keterangan Lain</td>
+                            <td rowspan="2" style="vertical-align: top;">: {{ suket.keterangan }}</td>
+                        </tr>
+                        <tr>
+                            <td>Diastole</td>
+                            <td>: {{ dataAnamnesa.diastole }} mmHg</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Penutup -->
+            <p class="mb-1">
+                Setelah kami lakukan pemeriksaan dengan seksama, yang bersangkutan pada saat ini kami nyatakan :
+                <strong>{{ suket.hasil_pemeriksaan }}</strong>.
+                Demikian agar yang berkepentingan maklum.
+            </p>
+
+            <!-- Tanda Tangan -->
+            <div class="text-end mt-0">
+                <p class="mb-0">Banyuwangi, {{ formattedDate }}</p>
+                <p class="mb-0">Dokter Pemeriksa</p>
+                <div style="height: 40px;"></div>
+                <p class="mb-0">{{ dokter.nmDokter }}</p>
+                <p class="mb-0">NIP. {{ dokter.NIP }}</p>
+            </div>
+        </div>
+    </template>
+
+<script setup>
+import { usePage } from '@inertiajs/vue3';
+import {onMounted } from 'vue';
+const page = usePage();
+
+const dataPasien = page.props.dataPasien
+const suket = page.props.suket
+const dataAnamnesa = page.props.dataAnamnesa
+const unit = page.props.unit
+const dokter = page.props.dokter
+const Kecamatan = page.props.kecamatan
+console.log('data pasien', dataPasien)
+console.log('suket', suket)
+
+const today = new Date();
+const options = { day: "numeric", month: "long", year: "numeric" };
+const formattedDate = today.toLocaleDateString("id-ID", options);
+const logoUrl = "/images/logo-dinkes.png";
+
+onMounted(()=>{
+    print()
+})
+function print(){
+   setTimeout(() => window.print(), 500);
+}
+</script>
+
+<style scoped>
+.surat {
+    max-width: 700px;
+    font-family: "Times New Roman", serif;
+    font-size: 12pt;
+    color: #000;
+}
+</style>

@@ -1,0 +1,1019 @@
+  .subjektif-form,
+  .risk-form,
+  .metabolik-form,
+  .genetik-form,
+  .indera-form,
+  .assessment-form,
+  .status-form,
+  .resume-form {
+    display: grid;
+    gap: 18px;
+  }
+
+  .subjektif-toolbar,
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .subjektif-toolbar {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5edf0;
+  }
+
+  .subjektif-kicker {
+    margin: 0 0 4px;
+    color: #64748b;
+    font-size: 0.76rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .subjektif-toolbar h3 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 1.2rem;
+    font-weight: 750;
+  }
+
+  .segmented-control {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid #cfd9e3;
+    border-radius: 8px;
+    background: #f8fafc;
+  }
+
+  .segment-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 7px 12px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #475569;
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .segment-button.active {
+    background: #0f6b4c;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(15, 107, 76, 0.18);
+  }
+
+  .fade-in {
+    animation: fadeIn 0.3s ease;
+  }
+
+  .visit-panel {
+    max-width: 100%;
+  }
+
+  .subjektif-panel,
+  .risk-panel,
+  .metabolik-panel,
+  .genetik-panel,
+  .indera-panel,
+  .assessment-panel,
+  .status-panel,
+  .resume-panel {
+    overflow: hidden;
+    border: 1px solid #d9e5df;
+    border-radius: 8px;
+    background: #ffffff;
+  }
+
+  .panel-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid #e5edf0;
+    background: #f8fafc;
+  }
+
+  .panel-header h4 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    color: #0f3d2e;
+    font-size: 1rem;
+    font-weight: 750;
+  }
+
+  .panel-header p {
+    margin: 5px 0 0;
+    color: #64748b;
+    font-size: 0.86rem;
+  }
+
+  .panel-body {
+    padding: 20px;
+  }
+
+  .form-field {
+    min-width: 0;
+  }
+
+  .risk-form .form-field,
+  .metabolik-form .form-field,
+  .genetik-form .form-field,
+  .indera-form .form-field,
+  .assessment-form .form-field,
+  .status-form .form-field,
+  .resume-form .form-field,
+  .assessment-form .diagnosis-option,
+  .assessment-form .summary-item,
+  .resume-form .summary-item {
+    padding: 14px;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+    background: #ffffff;
+  }
+
+  .span-full {
+    grid-column: 1 / -1;
+  }
+
+  .form-label {
+    margin-bottom: 6px;
+    color: #334155;
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .form-control,
+  .form-select {
+    width: 100%;
+    min-height: 42px;
+    border: 1px solid #cfd9e3;
+    border-radius: 8px;
+    color: #0f172a;
+  }
+
+  textarea.form-control {
+    resize: vertical;
+  }
+
+  .risk-form textarea.form-control {
+    min-height: 92px;
+  }
+
+  .risk-score-panel {
+    display: grid;
+    gap: 14px;
+    padding: 18px 20px;
+    border: 1px solid #d9e5df;
+    border-radius: 8px;
+    background: #f8fafc;
+  }
+
+  .risk-score-main {
+    display: grid;
+    grid-template-columns: minmax(180px, 260px) 1fr;
+    gap: 18px;
+    align-items: end;
+  }
+
+  .risk-score-label {
+    margin: 0 0 4px;
+    color: #64748b;
+    font-size: 0.76rem;
+    font-weight: 750;
+    text-transform: uppercase;
+  }
+
+  .risk-score-main h4 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+
+  .risk-score-main span,
+  .risk-score-note span {
+    color: #475569;
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+
+  .risk-score-meter {
+    overflow: hidden;
+    height: 12px;
+    border-radius: 999px;
+    background: #e2e8f0;
+  }
+
+  .risk-score-meter div {
+    height: 100%;
+    border-radius: inherit;
+    background: #16a36f;
+    transition: width 0.2s ease;
+  }
+
+  .risk-score-note {
+    display: grid;
+    gap: 4px;
+  }
+
+  .risk-score-note strong {
+    color: #0f172a;
+    font-size: 0.95rem;
+  }
+
+  .risk-score-factors {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .risk-score-factors span {
+    min-height: 28px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #334155;
+    font-size: 0.76rem;
+    font-weight: 750;
+    border: 1px solid #e2e8f0;
+  }
+
+  .risk-score-medium {
+    border-color: #fde68a;
+    background: #fffbeb;
+  }
+
+  .risk-score-medium .risk-score-meter div {
+    background: #f59e0b;
+  }
+
+  .risk-score-high {
+    border-color: #fecaca;
+    background: #fff5f5;
+  }
+
+  .risk-score-high .risk-score-meter div {
+    background: #dc2626;
+  }
+
+  .assessment-form textarea.form-control,
+  .status-form textarea.form-control {
+    min-height: 92px;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #16a36f;
+    box-shadow: 0 0 0 0.2rem rgba(22, 163, 111, 0.14);
+  }
+
+  .field-with-icon {
+    position: relative;
+  }
+
+  .field-with-icon i {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    color: #64748b;
+    transform: translateY(-50%);
+  }
+
+  .field-with-icon .form-control {
+    padding-left: 38px;
+  }
+
+  .input-with-addon {
+    display: flex;
+  }
+
+  .input-with-addon .form-control {
+    min-width: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .input-with-addon span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid #cfd9e3;
+    border-left: 0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 220px minmax(220px, 0.8fr) minmax(240px, 1fr) minmax(280px, 1fr);
+    gap: 16px;
+  }
+
+  .smoking-grid,
+  .habit-grid,
+  .history-grid {
+    display: grid;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .smoking-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .smoking-grid .form-field:nth-child(1),
+  .smoking-grid .form-field:nth-child(2) {
+    grid-column: span 3;
+  }
+
+  .smoking-grid .form-field:nth-child(3),
+  .smoking-grid .form-field:nth-child(4),
+  .smoking-grid .form-field:nth-child(5) {
+    grid-column: span 2;
+  }
+
+  .habit-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .history-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .history-grid .form-field:nth-child(1),
+  .history-grid .form-field:nth-child(2),
+  .history-grid .form-field:nth-child(3) {
+    grid-column: span 2;
+  }
+
+  .history-grid .note-field {
+    grid-column: span 2;
+  }
+
+  .history-grid .form-field:nth-last-child(2),
+  .history-grid .form-field:nth-last-child(1) {
+    grid-column: span 3;
+  }
+
+  .history-grid .history-check-field {
+    grid-column: span 3;
+  }
+
+  .radio-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid #cfd9e3;
+    border-radius: 8px;
+    color: #334155;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .radio-option.checked {
+    border-color: #16a36f;
+    background: #effaf5;
+    color: #0f6b4c;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eef3f6;
+  }
+
+  .section-title.with-gap {
+    margin-top: 22px;
+  }
+
+  .section-title h5 {
+    margin: 0;
+    color: #0f3d2e;
+    font-size: 0.94rem;
+    font-weight: 750;
+  }
+
+  .section-title span {
+    color: #64748b;
+    font-size: 0.78rem;
+    font-weight: 650;
+    text-align: right;
+  }
+
+  .form-field small,
+  .diagnosis-option small {
+    display: block;
+    margin-top: 7px;
+    color: #64748b;
+    font-size: 0.76rem;
+    font-weight: 650;
+  }
+
+  .field-hint {
+    display: block;
+    margin-top: 6px;
+    color: #64748b;
+    font-size: 0.78rem;
+    font-weight: 650;
+  }
+
+  .readonly-field,
+  .form-select:disabled {
+    background: #f8fafc;
+    color: #94a3b8;
+  }
+
+  .readonly-field {
+    color: #475569;
+    font-weight: 700;
+  }
+
+  .interpretation-control {
+    margin-top: 10px;
+  }
+
+  .form-check-input {
+    margin-top: 3px;
+  }
+
+  .form-check-input:focus {
+    border-color: #16a36f;
+    box-shadow: 0 0 0 0.2rem rgba(22, 163, 111, 0.14);
+  }
+
+  .form-check-input:checked {
+    border-color: #16a36f;
+    background-color: #16a36f;
+  }
+
+  .form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    padding-top: 16px;
+    border-top: 1px solid #e5edf0;
+    flex-wrap: wrap;
+  }
+
+  .save-status,
+  .send-status {
+    color: #64748b;
+    font-size: 0.86rem;
+    font-weight: 600;
+  }
+
+  .save-status.success,
+  .send-status.success {
+    color: #0f6b4c;
+  }
+
+  .save-button,
+  .send-button,
+  .finish-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 9px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: #0f6b4c;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 750;
+    box-shadow: 0 8px 18px rgba(15, 107, 76, 0.18);
+  }
+
+  .send-button,
+  .finish-button {
+    min-height: 42px;
+    padding: 10px 18px;
+    font-size: 0.92rem;
+  }
+
+  .finish-button {
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #0f3d2e;
+    box-shadow: none;
+  }
+
+  .save-button:disabled,
+  .send-button:disabled,
+  .finish-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.72;
+  }
+
+  .save-button .bi-arrow-repeat,
+  .send-button .bi-arrow-repeat,
+  .finish-button .bi-arrow-repeat {
+    animation: spin 0.8s linear infinite;
+  }
+
+  .action-buttons {
+    display: inline-flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .metric-grid,
+  .lab-grid,
+  .risk-grid,
+  .cancer-grid,
+  .question-grid,
+  .kolorektal-grid,
+  .hematologi-grid,
+  .check-grid,
+  .side-grid,
+  .result-grid,
+  .puma-grid,
+  .spirometry-grid,
+  .diagnosis-form-grid,
+  .diagnosis-grid,
+  .summary-grid,
+  .status-grid,
+  .composition-grid {
+    display: grid;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .metric-grid,
+  .risk-grid,
+  .hematologi-grid,
+  .result-grid,
+  .spirometry-grid,
+  .diagnosis-form-grid,
+  .diagnosis-grid,
+  .summary-grid,
+  .status-grid,
+  .composition-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lab-grid,
+  .question-grid,
+  .check-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .cancer-grid,
+  .kolorektal-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .side-grid,
+  .puma-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .result-grid,
+  .spirometry-grid {
+    margin-top: 16px;
+  }
+
+  .question-grid .form-field,
+  .question-grid .result-field,
+  .kolorektal-grid .form-field:nth-child(1),
+  .kolorektal-grid .form-field:nth-child(2),
+  .diagnosis-main-field {
+    grid-column: span 2;
+  }
+
+  .note-field,
+  .span-full {
+    grid-column: 1 / -1;
+  }
+
+  .side-card {
+    overflow: hidden;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+    background: #ffffff;
+  }
+
+  .side-head {
+    padding: 11px 14px;
+    color: #0f3d2e;
+    font-size: 0.86rem;
+    font-weight: 750;
+    border-bottom: 1px solid #edf2f7;
+    background: #f8fafc;
+  }
+
+  .side-head.kanan {
+    border-left: 4px solid #16a36f;
+  }
+
+  .side-head.kiri {
+    border-left: 4px solid #0ea5e9;
+  }
+
+  .side-body {
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .compact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .side-card .form-field {
+    padding: 0;
+    border: 0;
+  }
+
+  .warning-note,
+  .follow-up-panel {
+    border: 1px solid #f4d5a3;
+    border-radius: 8px;
+    background: #fffaf0;
+    color: #8a4b0f;
+  }
+
+  .warning-note {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    font-size: 0.86rem;
+    font-weight: 750;
+  }
+
+  .follow-up-panel {
+    margin-top: 16px;
+    padding: 14px;
+  }
+
+  .follow-up-alert {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #8a4b0f;
+    font-size: 0.86rem;
+    font-weight: 750;
+  }
+
+  .check-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid #cfd9e3;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #334155;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .history-check-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .follow-up-panel .check-option {
+    border-color: #efd6a6;
+  }
+
+  .diagnosis-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    min-height: 86px;
+    color: #334155;
+    cursor: pointer;
+  }
+
+  .diagnosis-option.checked {
+    border-color: #16a36f;
+    background: #effaf5;
+    color: #0f6b4c;
+  }
+
+  .diagnosis-option strong,
+  .diagnosis-option small,
+  .assessment-form .summary-item span,
+  .assessment-form .summary-item strong {
+    display: block;
+  }
+
+  .diagnosis-option strong,
+  .assessment-form .summary-item strong {
+    color: #0f172a;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .diagnosis-option .suggestion-hint {
+    color: #0f6b4c;
+  }
+
+  .assessment-form .summary-item {
+    min-height: 88px;
+    background: #f8fafc;
+  }
+
+  .assessment-form .summary-item span {
+    margin-bottom: 7px;
+    color: #64748b;
+    font-size: 0.76rem;
+    font-weight: 750;
+    text-transform: uppercase;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 5px 10px;
+    border: 1px solid #facc15;
+    border-radius: 999px;
+    background: #fefce8;
+    color: #854d0e;
+    font-size: 0.78rem;
+    font-weight: 750;
+  }
+
+  .status-pill.complete {
+    border-color: #86efac;
+    background: #f0fdf4;
+    color: #166534;
+  }
+
+  .summary-label {
+    margin-bottom: 6px;
+    color: #64748b;
+    font-size: 0.76rem;
+    font-weight: 750;
+    text-transform: uppercase;
+  }
+
+  .summary-value {
+    color: #0f172a;
+    font-size: 0.94rem;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+  }
+
+  .finding-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .finding-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+    background: #ffffff;
+  }
+
+  .finding-item i {
+    margin-top: 2px;
+    font-size: 1.1rem;
+  }
+
+  .finding-item strong,
+  .finding-item span {
+    display: block;
+  }
+
+  .finding-item strong {
+    color: #0f172a;
+    font-size: 0.92rem;
+  }
+
+  .finding-item span {
+    margin-top: 3px;
+    color: #64748b;
+    font-size: 0.84rem;
+  }
+
+  .success {
+    color: #16a34a;
+  }
+
+  .warning {
+    color: #d97706;
+  }
+
+  .danger {
+    color: #dc2626;
+  }
+
+  .info {
+    color: #2563eb;
+  }
+
+  .fhir-preview {
+    margin-top: 18px;
+    overflow: hidden;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    background: #f8fafc;
+  }
+
+  .preview-header {
+    display: grid;
+    gap: 6px;
+    padding: 12px 14px;
+    border-bottom: 1px solid #dbeafe;
+    color: #1e3a8a;
+    font-size: 0.82rem;
+    font-weight: 750;
+  }
+
+  .preview-header code {
+    color: #334155;
+    font-size: 0.76rem;
+    white-space: normal;
+  }
+
+  pre {
+    max-height: 300px;
+    margin: 0;
+    padding: 14px;
+    color: #0f172a;
+    font-size: 0.78rem;
+    white-space: pre-wrap;
+  }
+
+  @media (max-width: 992px) {
+    .visit-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .visit-grid .form-field:nth-child(3),
+    .visit-grid .form-field:nth-child(4) {
+      grid-column: 1 / -1;
+    }
+
+    .smoking-grid,
+    .habit-grid,
+    .history-grid,
+    .metric-grid,
+    .risk-grid,
+    .cancer-grid,
+    .question-grid,
+    .kolorektal-grid,
+    .hematologi-grid,
+    .check-grid,
+    .side-grid,
+    .result-grid,
+    .puma-grid,
+    .spirometry-grid,
+    .diagnosis-form-grid,
+    .diagnosis-grid,
+    .summary-grid,
+    .status-grid,
+    .composition-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .smoking-grid .form-field:nth-child(n),
+    .history-grid .form-field:nth-child(n),
+    .history-grid .note-field,
+    .history-grid .history-check-field,
+    .history-grid .form-field:nth-last-child(2),
+    .history-grid .form-field:nth-last-child(1) {
+      grid-column: auto;
+    }
+
+    .diagnosis-main-field {
+      grid-column: 1 / -1;
+    }
+
+    .question-grid .form-field,
+    .question-grid .result-field,
+    .kolorektal-grid .form-field:nth-child(n) {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .lab-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cancer-grid,
+    .kolorektal-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .kolorektal-grid .form-field:nth-child(n) {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .visit-grid,
+    .risk-score-main,
+    .smoking-grid,
+    .habit-grid,
+    .history-grid,
+    .radio-group,
+    .metric-grid,
+    .lab-grid,
+    .risk-grid,
+    .cancer-grid,
+    .question-grid,
+    .kolorektal-grid,
+    .hematologi-grid,
+    .check-grid,
+    .side-grid,
+    .result-grid,
+    .puma-grid,
+    .spirometry-grid,
+    .compact-grid,
+    .diagnosis-form-grid,
+    .diagnosis-grid,
+    .summary-grid,
+    .status-grid,
+    .composition-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .visit-grid .form-field:nth-child(3),
+    .visit-grid .form-field:nth-child(4),
+    .span-full {
+      grid-column: auto;
+    }
+
+    .panel-body {
+      padding: 16px;
+    }
+
+    .section-title {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .section-title span {
+      text-align: left;
+    }
+
+    .form-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+
+    .save-button,
+    .send-button,
+    .finish-button {
+      width: 100%;
+    }
+  }

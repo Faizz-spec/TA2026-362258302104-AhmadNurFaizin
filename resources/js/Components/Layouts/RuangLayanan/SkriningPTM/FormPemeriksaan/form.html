@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Skrining PTM — SATUSEHAT</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --hijau: #00875a;
+  --hijau-muda: #e3fcef;
+  --hijau-dark: #005c3d;
+  --biru: #0052cc;
+  --biru-muda: #deebff;
+  --merah: #c0392b;
+  --merah-muda: #fff0ee;
+  --kuning: #ff8b00;
+  --kuning-muda: #fffae6;
+  --abu: #f4f5f7;
+  --abu-2: #dfe1e6;
+  --abu-3: #97a0af;
+  --teks: #172b4d;
+  --teks-2: #344563;
+  --teks-3: #5e6c84;
+  --putih: #ffffff;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(0,0,0,.08);
+  --shadow-md: 0 4px 20px rgba(0,0,0,.12);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#eef0f3;color:var(--teks);font-size:14px;line-height:1.6}
+
+/* ===== HEADER ===== */
+.app-header{background:linear-gradient(135deg,var(--hijau-dark) 0%,var(--hijau) 100%);color:#fff;padding:18px 28px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,87,58,.25)}
+.app-header .logo{width:38px;height:38px;background:rgba(255,255,255,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;letter-spacing:-1px}
+.app-header .title h1{font-size:16px;font-weight:800;letter-spacing:-.3px}
+.app-header .title p{font-size:12px;opacity:.8;font-weight:500}
+.app-header .badge{margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;letter-spacing:.5px}
+
+/* ===== LAYOUT ===== */
+.container{display:flex;min-height:calc(100vh - 66px)}
+.sidebar{width:260px;background:var(--putih);border-right:1px solid var(--abu-2);position:sticky;top:66px;height:calc(100vh - 66px);overflow-y:auto;padding:16px 0;flex-shrink:0}
+.main{flex:1;padding:24px 28px;overflow-x:hidden;max-width:900px}
+
+/* ===== SIDEBAR NAV ===== */
+.nav-section{padding:8px 16px 4px;font-size:10px;font-weight:700;color:var(--abu-3);text-transform:uppercase;letter-spacing:.8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;border-left:3px solid transparent;transition:all .18s;color:var(--teks-3);font-weight:500;font-size:13px}
+.nav-item:hover{background:var(--abu);color:var(--teks)}
+.nav-item.active{border-left-color:var(--hijau);background:var(--hijau-muda);color:var(--hijau-dark);font-weight:700}
+.nav-item .nav-num{width:22px;height:22px;border-radius:50%;background:var(--abu-2);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-item.active .nav-num{background:var(--hijau);color:#fff}
+.nav-item.done .nav-num{background:var(--hijau-muda);color:var(--hijau)}
+
+/* ===== STEP PANELS ===== */
+.step-panel{display:none}
+.step-panel.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== CARDS ===== */
+.card{background:var(--putih);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden}
+.card-head{padding:16px 20px;border-bottom:1px solid var(--abu);display:flex;align-items:center;gap:10px}
+.card-head .icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.card-head h3{font-size:14px;font-weight:700;color:var(--teks)}
+.card-head .sub{font-size:11px;color:var(--teks-3);margin-top:1px}
+.card-body{padding:20px}
+
+/* ===== FORM ELEMENTS ===== */
+.row{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.col-3{grid-column:span 3}.col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
+@media(max-width:720px){.col-3,.col-4,.col-6,.col-8{grid-column:span 12}}
+
+.field{display:flex;flex-direction:column;gap:5px}
+.label{font-size:12px;font-weight:700;color:var(--teks-2)}
+.hint{font-size:10.5px;color:var(--teks-3);font-family:'JetBrains Mono',monospace}
+input[type=text],input[type=date],input[type=number],select,textarea{
+  width:100%;padding:9px 12px;border:1.5px solid var(--abu-2);border-radius:7px;font-family:inherit;font-size:13px;color:var(--teks);background:var(--putih);transition:border .18s,box-shadow .18s;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--hijau);box-shadow:0 0 0 3px rgba(0,135,90,.1)}
+input[readonly]{background:var(--abu);color:var(--teks-3)}
+textarea{resize:vertical;min-height:72px}
+.input-group{display:flex}
+.input-group input{border-radius:7px 0 0 7px;border-right:none}
+.input-group .addon{padding:9px 12px;background:var(--abu);border:1.5px solid var(--abu-2);border-radius:0 7px 7px 0;font-size:12px;color:var(--teks-3);white-space:nowrap;font-weight:600}
+
+/* radio group */
+.radio-group{display:flex;flex-wrap:wrap;gap:8px}
+.radio-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid var(--abu-2);border-radius:7px;cursor:pointer;font-size:12.5px;font-weight:500;color:var(--teks-2);transition:all .15s;user-select:none}
+.radio-btn input{display:none}
+.radio-btn:hover{border-color:var(--hijau);color:var(--hijau)}
+.radio-btn.checked{border-color:var(--hijau);background:var(--hijau-muda);color:var(--hijau-dark);font-weight:700}
+.radio-btn .dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--abu-2);transition:.15s;flex-shrink:0}
+.radio-btn.checked .dot{border-color:var(--hijau);background:var(--hijau)}
+
+/* divider */
+.divider{border:none;border-top:1px solid var(--abu);margin:16px 0}
+
+/* badge */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:4px;font-size:10.5px;font-weight:700;letter-spacing:.3px}
+.tag-info{background:var(--biru-muda);color:var(--biru)}
+.tag-success{background:var(--hijau-muda);color:var(--hijau-dark)}
+.tag-warn{background:var(--kuning-muda);color:var(--kuning)}
+.tag-danger{background:var(--merah-muda);color:var(--merah)}
+
+/* alert */
+.alert{padding:12px 16px;border-radius:8px;font-size:12.5px;display:flex;gap:10px;align-items:flex-start;margin-bottom:16px}
+.alert-info{background:var(--biru-muda);border:1px solid #b3d4ff;color:#003893}
+.alert-warn{background:var(--kuning-muda);border:1px solid #ffe29f;color:#7a4f00}
+
+/* step page title */
+.page-title{margin-bottom:20px}
+.page-title h2{font-size:20px;font-weight:800;color:var(--teks);letter-spacing:-.4px}
+.page-title p{font-size:13px;color:var(--teks-3);margin-top:3px}
+.breadcrumb{font-size:11px;color:var(--teks-3);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.breadcrumb span{color:var(--hijau);font-weight:600}
+
+/* nav buttons */
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--abu)}
+.btn{padding:10px 22px;border-radius:8px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .18s;display:flex;align-items:center;gap:7px}
+.btn-primary{background:var(--hijau);color:#fff}
+.btn-primary:hover{background:var(--hijau-dark)}
+.btn-secondary{background:var(--abu);color:var(--teks-2);border:1px solid var(--abu-2)}
+.btn-secondary:hover{background:var(--abu-2)}
+.btn-outline{background:transparent;color:var(--hijau);border:1.5px solid var(--hijau)}
+.btn-outline:hover{background:var(--hijau-muda)}
+
+/* summary card */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.summary-item{background:var(--abu);border-radius:8px;padding:12px 14px}
+.summary-item .s-label{font-size:11px;color:var(--teks-3);font-weight:600;margin-bottom:4px}
+.summary-item .s-value{font-size:14px;font-weight:700;color:var(--teks)}
+
+/* result bar */
+.result-bar{background:var(--abu);border-radius:8px;padding:14px 18px;display:flex;align-items:center;gap:14px}
+.result-bar .r-num{font-size:28px;font-weight:800;color:var(--hijau)}
+.result-bar .r-label{font-size:12px;font-weight:600;color:var(--teks-3)}
+
+/* progress bar top */
+.progress-top{background:rgba(255,255,255,.2);height:3px;position:absolute;bottom:0;left:0;right:0}
+.progress-fill{height:100%;background:#fff;transition:width .4s ease;border-radius:0 2px 2px 0}
+
+/* separator section */
+.section-sep{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--teks-3);margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+.section-sep::after{content:'';flex:1;height:1px;background:var(--abu-2)}
+
+/* checkbox grid */
+.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.check-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--abu-2);border-radius:7px;cursor:pointer;font-size:12.5px;font-weight:500;color:var(--teks-2);transition:all .15s;user-select:none}
+.check-item input[type=checkbox]{accent-color:var(--hijau);width:15px;height:15px;cursor:pointer}
+.check-item:hover{border-color:var(--hijau);background:var(--hijau-muda)}
+
+/* eye/ear grid */
+.bilateral{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.side-card{border:1.5px solid var(--abu-2);border-radius:8px;overflow:hidden}
+.side-card .side-head{padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.side-card .side-head.kanan{background:#e8f4fd;color:#0074b7}
+.side-card .side-head.kiri{background:#fde8f4;color:#b70074}
+.side-card .side-body{padding:12px}
+
+/* lab table */
+.lab-table{width:100%;border-collapse:collapse}
+.lab-table th{text-align:left;font-size:11px;font-weight:700;color:var(--teks-3);text-transform:uppercase;letter-spacing:.5px;padding:8px 10px;border-bottom:2px solid var(--abu-2)}
+.lab-table td{padding:8px 10px;border-bottom:1px solid var(--abu);vertical-align:middle}
+.lab-table tr:last-child td{border-bottom:none}
+.lab-table tr:hover td{background:var(--abu)}
+.lab-table input{border:1.5px solid var(--abu-2);border-radius:6px;padding:6px 9px;font-size:13px;font-family:inherit;width:100%;transition:.15s}
+.lab-table input:focus{border-color:var(--hijau);outline:none;box-shadow:0 0 0 2px rgba(0,135,90,.08)}
+
+/* scrollbar */
+.sidebar::-webkit-scrollbar{width:4px}.sidebar::-webkit-scrollbar-thumb{background:var(--abu-2);border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="app-header" style="position:relative;overflow:hidden">
+  <div class="logo">S</div>
+  <div class="title">
+    <h1>Form Skrining Penyakit Tidak Menular (PTM)</h1>
+    <p>Integrasi SATUSEHAT Platform — QuestionnaireResponse &amp; Observation FHIR R4</p>
+  </div>
+  <div class="badge">SANDBOX</div>
+  <div class="progress-top"><div class="progress-fill" id="progressFill" style="width:8%"></div></div>
+</div>
+
+<div class="container">
+
+<!-- ===== SIDEBAR ===== -->
+<nav class="sidebar" id="sidebar">
+  <div class="nav-section">Data Umum</div>
+  <div class="nav-item active" onclick="goTo(1)" id="nav-1"><span class="nav-num">1</span> Data Kunjungan &amp; Pasien</div>
+  <div class="nav-item" onclick="goTo(2)" id="nav-2"><span class="nav-num">2</span> Faktor Risiko PTM</div>
+
+  <div class="nav-section" style="margin-top:8px">Deteksi Dini</div>
+  <div class="nav-item" onclick="goTo(3)" id="nav-3"><span class="nav-num">3</span> Obesitas</div>
+  <div class="nav-item" onclick="goTo(4)" id="nav-4"><span class="nav-num">4</span> Hipertensi</div>
+  <div class="nav-item" onclick="goTo(5)" id="nav-5"><span class="nav-num">5</span> Gangguan Penglihatan</div>
+  <div class="nav-item" onclick="goTo(6)" id="nav-6"><span class="nav-num">6</span> Gangguan Pendengaran</div>
+  <div class="nav-item" onclick="goTo(7)" id="nav-7"><span class="nav-num">7</span> PPOK</div>
+  <div class="nav-item" onclick="goTo(8)" id="nav-8"><span class="nav-num">8</span> Kanker</div>
+  <div class="nav-item" onclick="goTo(9)" id="nav-9"><span class="nav-num">9</span> Diabetes Melitus</div>
+  <div class="nav-item" onclick="goTo(10)" id="nav-10"><span class="nav-num">10</span> Stroke &amp; Lipid</div>
+  <div class="nav-item" onclick="goTo(11)" id="nav-11"><span class="nav-num">11</span> Asam Urat</div>
+  <div class="nav-item" onclick="goTo(12)" id="nav-12"><span class="nav-num">12</span> Thalasemia</div>
+  <div class="nav-item" onclick="goTo(13)" id="nav-13"><span class="nav-num">13</span> Penyakit Jantung</div>
+
+  <div class="nav-section" style="margin-top:8px">Penutup</div>
+  <div class="nav-item" onclick="goTo(14)" id="nav-14"><span class="nav-num">14</span> Diagnosis &amp; Tindak Lanjut</div>
+  <div class="nav-item" onclick="goTo(15)" id="nav-15"><span class="nav-num">✓</span> Ringkasan &amp; Kirim</div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main class="main">
+
+<!-- STEP 1: DATA KUNJUNGAN -->
+<div class="step-panel active" id="step-1">
+  <div class="breadcrumb">Skrining PTM <span>› Data Kunjungan &amp; Pasien</span></div>
+  <div class="page-title"><h2>Data Kunjungan &amp; Pasien</h2><p>Pendaftaran kunjungan dan identitas peserta skrining</p></div>
+
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e3f9e5">🏥</div><div><h3>Data Kunjungan</h3><div class="sub">Encounter FHIR — periode dan lokasi layanan</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 field">
+          <label class="label">Tanggal Skrining</label>
+          <input type="date" id="tgl_skrining">
+          <span class="hint">Encounter.period.start</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Jenis Kunjungan</label>
+          <select id="jenis_kunjungan">
+            <option value="">— Pilih —</option>
+            <option>Baru</option>
+            <option>Ulang</option>
+          </select>
+          <span class="hint">Encounter.type</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Pemeriksa (Dokter/Perawat/Bidan)</label>
+          <input type="text" id="pemeriksa" placeholder="Nama pemeriksa">
+          <span class="hint">Encounter.participant.individual</span>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Fasilitas Pelayanan Kesehatan</label>
+          <input type="text" id="faskes" placeholder="Nama Puskesmas / Klinik">
+          <span class="hint">Encounter.serviceProvider</span>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Keluhan Utama / Anamnesis</label>
+          <textarea id="keluhan" placeholder="Keluhan, riwayat singkat, dan alasan skrining"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#deebff">👤</div><div><h3>Identitas Pasien</h3><div class="sub">Patient FHIR — data demografi peserta skrining</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6 field">
+          <label class="label">Nomor IHS Pasien</label>
+          <input type="text" id="ihs" placeholder="Patient IHS Number">
+          <span class="hint">Patient.identifier (SATUSEHAT ID)</span>
+        </div>
+        <div class="col-6 field">
+          <label class="label">NIK</label>
+          <input type="text" id="nik" placeholder="16 digit NIK">
+          <span class="hint">Patient.identifier (NIK)</span>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Nama Lengkap</label>
+          <input type="text" id="nama" placeholder="Nama sesuai KTP">
+          <span class="hint">Patient.name</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Tanggal Lahir</label>
+          <input type="date" id="tgl_lahir">
+          <span class="hint">Patient.birthDate</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Jenis Kelamin</label>
+          <select id="jk">
+            <option value="">— Pilih —</option>
+            <option value="male">Laki-laki</option>
+            <option value="female">Perempuan</option>
+          </select>
+          <span class="hint">Patient.gender</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">No. HP / Telepon</label>
+          <input type="text" id="nohp" placeholder="08xxxxxxxx">
+          <span class="hint">Patient.telecom</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Status Perkawinan</label>
+          <select id="status_kawin">
+            <option value="">— Pilih —</option>
+            <option>Belum kawin</option>
+            <option>Kawin</option>
+            <option>Cerai hidup</option>
+            <option>Cerai mati</option>
+          </select>
+          <span class="hint">Patient.maritalStatus</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Warga Negara</label>
+          <select id="wn">
+            <option value="ID">Indonesia (WNI)</option>
+            <option value="other">WNA</option>
+          </select>
+          <span class="hint">Patient.extension:citizenship</span>
+        </div>
+        <div class="col-12 field">
+          <label class="label">Alamat Lengkap</label>
+          <textarea id="alamat" placeholder="Jalan, RT/RW, Desa/Kelurahan, Kecamatan, Kab/Kota, Provinsi"></textarea>
+          <span class="hint">Patient.address.line</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn btn-primary" onclick="goTo(2)">Lanjut: Faktor Risiko PTM →</button>
+  </div>
+</div>
+
+<!-- STEP 2: FAKTOR RISIKO -->
+<div class="step-panel" id="step-2">
+  <div class="breadcrumb">Skrining PTM <span>› Faktor Risiko &amp; Riwayat PTM</span></div>
+  <div class="page-title"><h2>Faktor Risiko PTM</h2><p>QuestionnaireResponse Q0013 — Riwayat dan perilaku berisiko</p></div>
+
+  <div class="alert alert-info">ℹ️ Semua jawaban dikirim melalui <strong>QuestionnaireResponse</strong> dengan referensi ke <code>https://fhir.kemkes.go.id/Questionnaire/Q0013</code></div>
+
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#fff3e0">🚬</div><div><h3>Status Merokok</h3><div class="sub">Observation LOINC 72166-2 + Q0013 linkId 1.1–1.5</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6 field">
+          <label class="label">Apakah pernah merokok? <span class="hint" style="display:inline">linkId 1.1</span></label>
+          <div class="radio-group" id="rg_merokok">
+            <label class="radio-btn"><input type="radio" name="merokok" value="tidak"><span class="dot"></span> Tidak</label>
+            <label class="radio-btn"><input type="radio" name="merokok" value="ya"><span class="dot"></span> Ya</label>
+          </div>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Status Merokok Saat Ini <span class="hint" style="display:inline">LOINC 72166-2, linkId 1.4</span></label>
+          <select id="status_merokok">
+            <option value="">— Pilih —</option>
+            <option value="never">Tidak pernah merokok</option>
+            <option value="current">Merokok aktif</option>
+            <option value="ex">Mantan perokok</option>
+          </select>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Rata-rata Batang Rokok/Hari <span class="hint" style="display:inline">linkId 1.2</span></label>
+          <input type="number" id="btg_rokok" min="0" placeholder="0">
+        </div>
+        <div class="col-4 field">
+          <label class="label">Lama Merokok <span class="hint" style="display:inline">linkId 1.3</span></label>
+          <div class="input-group"><input type="number" id="lama_rokok" min="0" placeholder="0"><span class="addon">tahun</span></div>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Terpapar Asap Rokok Orang Lain (1 bln) <span class="hint" style="display:inline">linkId 1.5</span></label>
+          <select id="paparan_rokok">
+            <option value="tidak">Tidak</option>
+            <option value="kadang">Ya, tidak setiap hari</option>
+            <option value="setiap_hari">Ya, setiap hari</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#fde8e8">🍽️</div><div><h3>Pola Makan &amp; Aktivitas</h3><div class="sub">Q0013 linkId 1.6–1.11</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6 field">
+          <label class="label">Konsumsi gula &gt;4 sdm/hari? <span class="hint" style="display:inline">1.6</span></label>
+          <select id="gula"><option value="tidak">Tidak</option><option value="kadang">Ya, tidak setiap hari</option><option value="setiap_hari">Ya, setiap hari</option></select>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Konsumsi garam &gt;1 sdt/hari? <span class="hint" style="display:inline">1.7</span></label>
+          <select id="garam"><option value="tidak">Tidak</option><option value="kadang">Ya, tidak setiap hari</option><option value="setiap_hari">Ya, setiap hari</option></select>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Konsumsi minyak &gt;5 sdm/hari? <span class="hint" style="display:inline">1.8</span></label>
+          <select id="minyak"><option value="tidak">Tidak</option><option value="kadang">Ya, tidak setiap hari</option><option value="setiap_hari">Ya, setiap hari</option></select>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Kurang sayur/buah (&lt;5 porsi/hari)? <span class="hint" style="display:inline">1.9</span></label>
+          <select id="sayur"><option value="tidak">Tidak</option><option value="kadang">Ya, tidak setiap hari</option><option value="setiap_hari">Ya, setiap hari</option></select>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Aktivitas fisik &lt;30 mnt/hari atau &lt;150 mnt/minggu? <span class="hint" style="display:inline">1.10</span></label>
+          <select id="aktivitas"><option value="tidak">Tidak</option><option value="kadang">Ya, tidak setiap hari</option><option value="setiap_hari">Ya, setiap hari</option></select>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Konsumsi alkohol dalam 1 bulan terakhir? <span class="hint" style="display:inline">1.11</span></label>
+          <select id="alkohol"><option value="tidak">Tidak</option><option value="ya">Ya</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#ede7f6">📋</div><div><h3>Riwayat PTM</h3><div class="sub">Condition FHIR — riwayat pribadi dan keluarga</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 field">
+          <label class="label">Riwayat Hipertensi</label>
+          <select id="r_htn"><option value="tidak">Tidak</option><option value="aktif">Ya, sedang aktif</option><option value="dahulu">Ya, dahulu</option><option value="tidak_tahu">Tidak tahu</option></select>
+          <span class="hint">Condition.category — riwayat pribadi</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Riwayat Diabetes Melitus</label>
+          <select id="r_dm"><option value="tidak">Tidak</option><option value="aktif">Ya, sedang aktif</option><option value="dahulu">Ya, dahulu</option><option value="tidak_tahu">Tidak tahu</option></select>
+          <span class="hint">Condition.category — riwayat pribadi</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Riwayat Stroke / Penyakit Jantung</label>
+          <select id="r_stroke"><option value="tidak">Tidak</option><option value="aktif">Ya, sedang aktif</option><option value="dahulu">Ya, dahulu</option><option value="tidak_tahu">Tidak tahu</option></select>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Riwayat PTM Pribadi Lain</label>
+          <textarea id="r_pribadi_lain" placeholder="Dislipidemia, kanker, ginjal kronis, dll."></textarea>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Riwayat PTM Keluarga</label>
+          <textarea id="r_keluarga" placeholder="Hipertensi, DM, stroke, jantung, kanker, dll."></textarea>
+          <span class="hint">FamilyMemberHistory</span>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Obat yang Sedang Dikonsumsi</label>
+          <textarea id="obat" placeholder="Antihipertensi, antidiabetes, statin, dll."></textarea>
+          <span class="hint">MedicationStatement</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Kesiapan Berubah</label>
+          <select id="kesiapan"><option value="tidak_siap">Tidak siap</option><option value="ragu">Ragu</option><option value="siap">Siap</option></select>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Dukungan Keluarga</label>
+          <select id="dukung"><option value="kurang">Kurang</option><option value="cukup">Cukup</option><option value="baik">Baik</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(1)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(3)">Lanjut: Deteksi Dini Obesitas →</button>
+  </div>
+</div>
+
+<!-- STEP 3: OBESITAS -->
+<div class="step-panel" id="step-3">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Obesitas</span></div>
+  <div class="page-title"><h2>Deteksi Dini Obesitas</h2><p>Observation FHIR — Berat Badan, Tinggi Badan, IMT, Lingkar Pinggang</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e8f5e9">⚖️</div><div><h3>Antropometri</h3><div class="sub">Observation LOINC — pengukuran fisik dasar</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-3 field">
+          <label class="label">Berat Badan</label>
+          <div class="input-group"><input type="number" id="bb" min="0" step="0.1" placeholder="0.0" oninput="hitungIMT()"><span class="addon">kg</span></div>
+          <span class="hint">LOINC 29463-7</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Tinggi Badan</label>
+          <div class="input-group"><input type="number" id="tb" min="0" step="0.1" placeholder="0.0" oninput="hitungIMT()"><span class="addon">cm</span></div>
+          <span class="hint">LOINC 8302-2</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">IMT (auto-hitung)</label>
+          <div class="input-group"><input type="text" id="imt" readonly placeholder="—"><span class="addon">kg/m²</span></div>
+          <span class="hint">LOINC 39156-5</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Interpretasi IMT</label>
+          <input type="text" id="imt_interp" readonly placeholder="—" class="tag-success">
+          <span class="hint">Observation.interpretation</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Lingkar Pinggang</label>
+          <div class="input-group"><input type="number" id="lp" min="0" step="0.1" placeholder="0.0" oninput="interpretLP()"><span class="addon">cm</span></div>
+          <span class="hint">LOINC 8280-0</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Interpretasi Lingkar Pinggang</label>
+          <input type="text" id="lp_interp" readonly placeholder="—">
+          <span class="hint">Observation.interpretation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(2)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(4)">Lanjut: Hipertensi →</button>
+  </div>
+</div>
+
+<!-- STEP 4: HIPERTENSI -->
+<div class="step-panel" id="step-4">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Hipertensi</span></div>
+  <div class="page-title"><h2>Deteksi Dini Hipertensi</h2><p>Observation FHIR — Tekanan Darah &amp; Interpretasi</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#fde8e8">❤️</div><div><h3>Pengukuran Tekanan Darah</h3><div class="sub">LOINC 8480-6 (sistolik), 8462-4 (diastolik)</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-3 field">
+          <label class="label">Tekanan Darah Sistolik</label>
+          <div class="input-group"><input type="number" id="td_s" min="0" placeholder="120" oninput="interpretTD()"><span class="addon">mmHg</span></div>
+          <span class="hint">LOINC 8480-6</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Tekanan Darah Diastolik</label>
+          <div class="input-group"><input type="number" id="td_d" min="0" placeholder="80" oninput="interpretTD()"><span class="addon">mmHg</span></div>
+          <span class="hint">LOINC 8462-4</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Interpretasi Hipertensi</label>
+          <input type="text" id="td_interp" readonly placeholder="—">
+          <span class="hint">Observation.interpretation (KMK 4634/2021)</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Frekuensi Nadi</label>
+          <div class="input-group"><input type="number" id="nadi" min="0" placeholder="80"><span class="addon">x/mnt</span></div>
+          <span class="hint">LOINC 8867-4</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Frekuensi Napas</label>
+          <div class="input-group"><input type="number" id="napas" min="0" placeholder="18"><span class="addon">x/mnt</span></div>
+          <span class="hint">LOINC 9279-1</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Suhu Tubuh</label>
+          <div class="input-group"><input type="number" id="suhu" min="0" step="0.1" placeholder="36.5"><span class="addon">°C</span></div>
+          <span class="hint">LOINC 8310-5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(3)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(5)">Lanjut: Gangguan Penglihatan →</button>
+  </div>
+</div>
+
+<!-- STEP 5: MATA -->
+<div class="step-panel" id="step-5">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Gangguan Penglihatan</span></div>
+  <div class="page-title"><h2>Deteksi Dini Gangguan Penglihatan</h2><p>Observation — Mata Kanan dan Mata Kiri</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e3f2fd">👁️</div><div><h3>Tajam Penglihatan (Snellen Chart)</h3><div class="sub">Uncorrected visual acuity — Observation.valueRatio</div></div></div>
+    <div class="card-body">
+      <div class="bilateral">
+        <div class="side-card"><div class="side-head kanan">Mata Kanan (OD)</div><div class="side-body">
+          <div class="field" style="margin-bottom:10px"><label class="label">Visus (misal 6/6)</label><input type="text" id="visus_od" placeholder="6/6"></div>
+          <div class="field"><label class="label">Pinhole</label><input type="text" id="pinhole_od" placeholder="6/6"></div>
+        </div></div>
+        <div class="side-card"><div class="side-head kiri">Mata Kiri (OS)</div><div class="side-body">
+          <div class="field" style="margin-bottom:10px"><label class="label">Visus (misal 6/6)</label><input type="text" id="visus_os" placeholder="6/6"></div>
+          <div class="field"><label class="label">Pinhole</label><input type="text" id="pinhole_os" placeholder="6/6"></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#f3e5f5">🔬</div><div><h3>Pemeriksaan Segmen Anterior &amp; Katarak</h3></div></div>
+    <div class="card-body">
+      <div class="bilateral">
+        <div class="side-card"><div class="side-head kanan">Mata Kanan</div><div class="side-body">
+          <div class="field" style="margin-bottom:10px"><label class="label">Segmen Anterior (Pupil)</label><select id="sa_od"><option value="">— Pilih —</option><option>Normal</option><option>Tidak Normal</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">Refleks Fundus (Oftalmoskop)</label><select id="rf_od"><option value="">— Pilih —</option><option>Normal</option><option>Tidak Normal</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">Shadow Test</label><select id="st_od"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+          <div class="field"><label class="label">Curiga Glaukoma (TIO mmHg)</label><input type="number" id="gio_od" placeholder="mmHg"></div>
+        </div></div>
+        <div class="side-card"><div class="side-head kiri">Mata Kiri</div><div class="side-body">
+          <div class="field" style="margin-bottom:10px"><label class="label">Segmen Anterior (Pupil)</label><select id="sa_os"><option value="">— Pilih —</option><option>Normal</option><option>Tidak Normal</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">Refleks Fundus (Oftalmoskop)</label><select id="rf_os"><option value="">— Pilih —</option><option>Normal</option><option>Tidak Normal</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">Shadow Test</label><select id="st_os"><option value="">— Pilih —</option><option>Negatif</option><option>Positif</option></select></div>
+          <div class="field"><label class="label">Curiga Glaukoma (TIO mmHg)</label><input type="number" id="gio_os" placeholder="mmHg"></div>
+        </div></div>
+      </div>
+      <hr class="divider">
+      <div class="row">
+        <div class="col-6 field"><label class="label">Curiga Retinopati Mata Kanan</label><select id="retino_od"><option value="false">Tidak</option><option value="true">Ya</option></select><span class="hint">Observation.valueBoolean</span></div>
+        <div class="col-6 field"><label class="label">Curiga Retinopati Mata Kiri</label><select id="retino_os"><option value="false">Tidak</option><option value="true">Ya</option></select><span class="hint">Observation.valueBoolean</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(4)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(6)">Lanjut: Gangguan Pendengaran →</button>
+  </div>
+</div>
+
+<!-- STEP 6: TELINGA -->
+<div class="step-panel" id="step-6">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Gangguan Pendengaran</span></div>
+  <div class="page-title"><h2>Deteksi Dini Gangguan Pendengaran</h2><p>Observation — Telinga Kanan dan Telinga Kiri</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#fff3e0">👂</div><div><h3>Pemeriksaan Pendengaran</h3><div class="sub">Observation.valueBoolean &amp; valueCodeableConcept</div></div></div>
+    <div class="card-body">
+      <div class="bilateral">
+        <div class="side-card"><div class="side-head kanan">Telinga Kanan</div><div class="side-body">
+          <div class="field" style="margin-bottom:10px"><label class="label">Curiga Tuli Kongenital</label><select id="tuli_kanan"><option value="false">Tidak</option><option value="true">Ya</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">OMSK / Congek</label><select id="omsk_kanan"><option value="false">Tidak</option><option value="true">Ya</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">Serumen Impaksi</label><select id="serumen_kanan"><option value="false">Tidak</option><option value="true">Ya</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">Curiga Presbikusis</label><select id="presbi_kanan"><option value="false">Tidak</option><option value="true">Ya</option></select></div>
+          <div class="field"><label class="label">Tes Berbisik</label><select id="bisik_kanan"><option value="">— Pilih —</option><option>Normal (≥6 meter)</option><option>Ringan (4–5 m)</option><option>Sedang (1–3 m)</option><option>Berat (&lt;1 m)</option></select></div>
+        </div></div>
+        <div class="side-card"><div class="side-head kiri">Telinga Kiri</div><div class="side-body">
+          <div class="field" style="margin-bottom:10px"><label class="label">Curiga Tuli Kongenital</label><select id="tuli_kiri"><option value="false">Tidak</option><option value="true">Ya</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">OMSK / Congek</label><select id="omsk_kiri"><option value="false">Tidak</option><option value="true">Ya</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">Serumen Impaksi</label><select id="serumen_kiri"><option value="false">Tidak</option><option value="true">Ya</option></select></div>
+          <div class="field" style="margin-bottom:10px"><label class="label">Curiga Presbikusis</label><select id="presbi_kiri"><option value="false">Tidak</option><option value="true">Ya</option></select></div>
+          <div class="field"><label class="label">Tes Berbisik</label><select id="bisik_kiri"><option value="">— Pilih —</option><option>Normal (≥6 meter)</option><option>Ringan (4–5 m)</option><option>Sedang (1–3 m)</option><option>Berat (&lt;1 m)</option></select></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(5)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(7)">Lanjut: PPOK →</button>
+  </div>
+</div>
+
+<!-- STEP 7: PPOK -->
+<div class="step-panel" id="step-7">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini PPOK</span></div>
+  <div class="page-title"><h2>Deteksi Dini PPOK</h2><p>QuestionnaireResponse Q0021 (Kuesioner PUMA) — khusus usia &gt;40 tahun dan merokok</p></div>
+  <div class="alert alert-warn">⚠️ Pemeriksaan ini <strong>khusus</strong> untuk peserta usia &gt;40 tahun dengan riwayat merokok.</div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e8f5e9">🫁</div><div><h3>Kuesioner PUMA</h3><div class="sub">QuestionnaireResponse — https://fhir.kemkes.go.id/Questionnaire/Q0021</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 field">
+          <label class="label">1. Apakah peserta pernah merasa napas pendek saat berjalan lebih cepat di jalan datar atau menanjak?</label>
+          <div class="radio-group" id="rg_ppok1">
+            <label class="radio-btn"><input type="radio" name="ppok1" value="ya"><span class="dot"></span>Ya</label>
+            <label class="radio-btn"><input type="radio" name="ppok1" value="tidak"><span class="dot"></span>Tidak</label>
+          </div>
+        </div>
+        <div class="col-12 field">
+          <label class="label">2. Apakah biasanya mempunyai dahak dari paru atau kesulitan mengeluarkan dahak saat tidak flu?</label>
+          <div class="radio-group" id="rg_ppok2">
+            <label class="radio-btn"><input type="radio" name="ppok2" value="ya"><span class="dot"></span>Ya</label>
+            <label class="radio-btn"><input type="radio" name="ppok2" value="tidak"><span class="dot"></span>Tidak</label>
+          </div>
+        </div>
+        <div class="col-12 field">
+          <label class="label">3. Apakah biasanya batuk saat tidak menderita selesma/flu?</label>
+          <div class="radio-group" id="rg_ppok3">
+            <label class="radio-btn"><input type="radio" name="ppok3" value="ya"><span class="dot"></span>Ya</label>
+            <label class="radio-btn"><input type="radio" name="ppok3" value="tidak"><span class="dot"></span>Tidak</label>
+          </div>
+        </div>
+        <div class="col-12 field">
+          <label class="label">4. Apakah dokter/nakes pernah meminta melakukan spirometri/peak flow meter?</label>
+          <div class="radio-group" id="rg_ppok4">
+            <label class="radio-btn"><input type="radio" name="ppok4" value="ya"><span class="dot"></span>Ya</label>
+            <label class="radio-btn"><input type="radio" name="ppok4" value="tidak"><span class="dot"></span>Tidak</label>
+          </div>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Total Skor PUMA</label>
+          <input type="number" id="skor_puma" min="0" max="10" placeholder="0">
+          <span class="hint">Jika skor ≥ 6 → wajib spirometri</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Hasil Kuesioner PUMA</label>
+          <select id="hasil_puma"><option value="">— Pilih —</option><option value="rendah">Risiko Rendah (&lt;6)</option><option value="tinggi">Risiko Tinggi (≥6)</option></select>
+        </div>
+      </div>
+      <div class="section-sep">Pemeriksaan Fisik Paru</div>
+      <div class="check-grid">
+        <label class="check-item"><input type="checkbox" id="pink_puffer"> Pink puffer (kulit kemerahan)</label>
+        <label class="check-item"><input type="checkbox" id="pursed_lips"> Pursed lips breathing</label>
+        <label class="check-item"><input type="checkbox" id="otot_bantu"> Penggunaan otot bantu napas</label>
+        <label class="check-item"><input type="checkbox" id="pelebaran_sela"> Pelebaran sela iga</label>
+        <label class="check-item"><input type="checkbox" id="barrel_chest"> Barrel chest</label>
+        <label class="check-item"><input type="checkbox" id="hipersonor"> Perkusi hipersonor</label>
+        <label class="check-item"><input type="checkbox" id="vesikuler"> Suara nafas vesikuler melemah</label>
+        <label class="check-item"><input type="checkbox" id="ronki"> Ronki / mengi</label>
+        <label class="check-item"><input type="checkbox" id="ekspirasi_pjg"> Ekspirasi memanjang</label>
+      </div>
+      <div class="section-sep">Spirometri (jika skor ≥ 6)</div>
+      <div class="row">
+        <div class="col-4 field"><label class="label">% KV (KV/KV Prediksi)</label><div class="input-group"><input type="number" id="kv" placeholder="0.0"><span class="addon">%</span></div></div>
+        <div class="col-4 field"><label class="label">% KVP (KVP/KVP Prediksi)</label><div class="input-group"><input type="number" id="kvp" placeholder="0.0"><span class="addon">%</span></div></div>
+        <div class="col-4 field"><label class="label">% VEP1 (VEP1/VEP1 Prediksi)</label><div class="input-group"><input type="number" id="vep1" placeholder="0.0"><span class="addon">%</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(6)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(8)">Lanjut: Kanker →</button>
+  </div>
+</div>
+
+<!-- STEP 8: KANKER -->
+<div class="step-panel" id="step-8">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Kanker</span></div>
+  <div class="page-title"><h2>Deteksi Dini Kanker</h2><p>Procedure &amp; Observation — Serviks, Payudara, Paru, Kolorektal</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#fce4ec">🔴</div><div><h3>Kanker Serviks &amp; Payudara</h3><div class="sub">Khusus Perempuan — IVA, SADANIS, HPV-DNA</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 field"><label class="label">Pemeriksaan Inspekulo</label><select id="inspekulo"><option value="">Tidak dilakukan</option><option value="normal">Normal</option><option value="radang">Radang/Servisitis</option><option value="polip">Polip</option><option value="curiga_kanker">Curiga Kanker</option></select><span class="hint">Procedure + Observation</span></div>
+        <div class="col-4 field"><label class="label">Hasil IVA</label><select id="iva"><option value="">Tidak dilakukan</option><option value="negatif">IVA Negatif</option><option value="positif">IVA Positif</option><option value="curiga_kanker">Curiga Kanker Serviks</option></select><span class="hint">Procedure.code + Observation</span></div>
+        <div class="col-4 field"><label class="label">HPV-DNA</label><select id="hpv"><option value="">Tidak dilakukan</option><option value="negatif">Negatif</option><option value="positif">Positif</option></select><span class="hint">Observation LOINC</span></div>
+        <div class="col-4 field"><label class="label">SADANIS (Payudara)</label><select id="sadanis"><option value="">Tidak dilakukan</option><option value="normal">Normal</option><option value="curiga">Curiga kelainan</option></select><span class="hint">Observation</span></div>
+        <div class="col-4 field"><label class="label">USG Payudara</label><select id="usg_py"><option value="">Tidak dilakukan</option><option value="normal">Normal</option><option value="curiga">Curiga kelainan</option></select><span class="hint">ImagingStudy / Observation</span></div>
+      </div>
+      <div id="iva_tindak" style="display:none;margin-top:14px">
+        <div class="alert alert-warn">⚠️ IVA Positif — pilih tindak lanjut yang sesuai (ServiceRequest)</div>
+        <div class="check-grid">
+          <label class="check-item"><input type="checkbox" id="krioterapi"> Krioterapi</label>
+          <label class="check-item"><input type="checkbox" id="thermal"> Thermal ablation</label>
+          <label class="check-item"><input type="checkbox" id="tca"> Trichloroacetic acid</label>
+          <label class="check-item"><input type="checkbox" id="rujuk_serviks"> Rujuk faskes lanjut</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e8eaf6">🫁</div><div><h3>Kanker Paru</h3><div class="sub">QuestionnaireResponse Q0019</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6 field"><label class="label">Pernah didiagnosis/menderita kanker?</label><select id="kp1"><option value="">— Pilih —</option><option value="tidak">Tidak</option><option value="ya">Ya</option></select></div>
+        <div class="col-6 field"><label class="label">Ada keluarga yang didiagnosis kanker?</label><select id="kp2"><option value="">— Pilih —</option><option value="tidak">Tidak</option><option value="ya">Ya</option></select></div>
+        <div class="col-6 field"><label class="label">Riwayat merokok/paparan asap rokok?</label><select id="kp3"><option value="">— Pilih —</option><option value="tidak">Tidak</option><option value="ya">Ya</option></select></div>
+        <div class="col-6 field"><label class="label">Lingkungan tempat kerja mengandung zat karsinogenik?</label><select id="kp4"><option value="">— Pilih —</option><option value="tidak">Tidak</option><option value="ya">Ya</option></select></div>
+        <div class="col-6 field"><label class="label">Lingkungan berpotensi tinggi (dekat pabrik/pertambangan)?</label><select id="kp5"><option value="">— Pilih —</option><option value="tidak">Tidak</option><option value="ya">Ya</option></select></div>
+        <div class="col-6 field"><label class="label">Lingkungan dalam rumah tidak sehat?</label><select id="kp6"><option value="">— Pilih —</option><option value="tidak">Tidak</option><option value="ya">Ya</option></select></div>
+        <div class="col-6 field"><label class="label">Pernah didiagnosis penyakit paru kronik?</label><select id="kp7"><option value="">— Pilih —</option><option value="tidak">Tidak</option><option value="ya">Ya</option></select></div>
+        <div class="col-6 field"><label class="label">Hasil Kuesioner Kanker Paru</label><select id="hasil_kp"><option value="">— Pilih —</option><option value="rendah">Risiko Rendah</option><option value="tinggi">Risiko Tinggi</option></select></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e8f5e9">🫀</div><div><h3>Kanker Kolorektal</h3><div class="sub">QuestionnaireResponse Q0020 — diutamakan usia &gt;50 tahun</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6 field"><label class="label">Riwayat keluarga generasi pertama kanker kolorektal?</label><select id="kkr1"><option value="">— Pilih —</option><option value="tidak">Tidak</option><option value="ya">Ya</option></select></div>
+        <div class="col-6 field"><label class="label">Apakah peserta merokok?</label><select id="kkr2"><option value="">— Pilih —</option><option value="tidak">Tidak</option><option value="ya">Ya</option></select></div>
+        <div class="col-4 field"><label class="label">Hasil Skoring Kolorektal</label><select id="hasil_kkr"><option value="">— Pilih —</option><option value="rendah">Risiko Rendah</option><option value="tinggi">Risiko Tinggi</option></select></div>
+        <div class="col-4 field"><label class="label">Pemeriksaan Colok Dubur (jika risiko tinggi)</label><select id="colok_dubur"><option value="">Tidak dilakukan</option><option value="normal">Normal</option><option value="curiga">Curiga</option></select></div>
+        <div class="col-4 field"><label class="label">Darah Samar Feses (jika risiko tinggi)</label><select id="darah_samar"><option value="">Tidak dilakukan</option><option value="negatif">Negatif</option><option value="positif">Positif</option></select></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(7)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(9)">Lanjut: Diabetes Melitus →</button>
+  </div>
+</div>
+
+<!-- STEP 9: DM -->
+<div class="step-panel" id="step-9">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Diabetes Melitus</span></div>
+  <div class="page-title"><h2>Deteksi Dini Diabetes Melitus</h2><p>Observation — Pemeriksaan Gula Darah Laboratorium</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#fff9c4">🩸</div><div><h3>Pemeriksaan Gula Darah</h3><div class="sub">Observation LOINC — KMK 603/2020</div></div></div>
+    <div class="card-body">
+      <table class="lab-table">
+        <thead><tr><th>Parameter</th><th>Nilai</th><th>Satuan</th><th>Interpretasi</th><th>LOINC</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Gula Darah Sewaktu (GDS)</td>
+            <td><input type="number" id="gds" min="0" placeholder="—" oninput="interpretDM()"></td>
+            <td>mg/dL</td>
+            <td><input type="text" id="gds_i" readonly placeholder="—"></td>
+            <td class="hint">2339-0</td>
+          </tr>
+          <tr>
+            <td>Gula Darah Puasa (GDP)</td>
+            <td><input type="number" id="gdp" min="0" placeholder="—" oninput="interpretDM()"></td>
+            <td>mg/dL</td>
+            <td><input type="text" id="gdp_i" readonly placeholder="—"></td>
+            <td class="hint">1558-6</td>
+          </tr>
+          <tr>
+            <td>Gula Darah 2 jam PP</td>
+            <td><input type="number" id="gd2j" min="0" placeholder="—" oninput="interpretDM()"></td>
+            <td>mg/dL</td>
+            <td><input type="text" id="gd2j_i" readonly placeholder="—"></td>
+            <td class="hint">14743-9</td>
+          </tr>
+          <tr>
+            <td>HbA1C</td>
+            <td><input type="number" id="hba1c" min="0" step="0.1" placeholder="—" oninput="interpretDM()"></td>
+            <td>%</td>
+            <td><input type="text" id="hba1c_i" readonly placeholder="—"></td>
+            <td class="hint">4548-4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(8)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(10)">Lanjut: Stroke &amp; Lipid →</button>
+  </div>
+</div>
+
+<!-- STEP 10: STROKE / LIPID -->
+<div class="step-panel" id="step-10">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Stroke</span></div>
+  <div class="page-title"><h2>Deteksi Dini Stroke</h2><p>Observation — Profil Lipid &amp; Prediksi Risiko PTM</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#fce4ec">💊</div><div><h3>Profil Lipid</h3><div class="sub">Observation LOINC — Panduan Dislipidemia 2021</div></div></div>
+    <div class="card-body">
+      <table class="lab-table">
+        <thead><tr><th>Parameter</th><th>Nilai</th><th>Satuan</th><th>Interpretasi</th><th>LOINC</th></tr></thead>
+        <tbody>
+          <tr><td>Kolesterol Total</td><td><input type="number" id="koltot" placeholder="—" oninput="interpretLipid()"></td><td>mg/dL</td><td><input type="text" id="koltot_i" readonly placeholder="—"></td><td class="hint">2093-3</td></tr>
+          <tr><td>HDL</td><td><input type="number" id="hdl" placeholder="—"></td><td>mg/dL</td><td><input type="text" id="hdl_i" readonly placeholder="—"></td><td class="hint">2085-9</td></tr>
+          <tr><td>LDL</td><td><input type="number" id="ldl" placeholder="—" oninput="interpretLDL()"></td><td>mg/dL</td><td><input type="text" id="ldl_i" readonly placeholder="—"></td><td class="hint">2089-1</td></tr>
+          <tr><td>Trigliserida</td><td><input type="number" id="tg" placeholder="—" oninput="interpretTG()"></td><td>mg/dL</td><td><input type="text" id="tg_i" readonly placeholder="—"></td><td class="hint">2571-8</td></tr>
+        </tbody>
+      </table>
+      <hr class="divider">
+      <div class="row">
+        <div class="col-6 field">
+          <label class="label">Prediksi Risiko PTM (dengan Lab)</label>
+          <div class="input-group"><input type="number" id="risiko_lab" min="0" max="100" placeholder="0"><span class="addon">%</span></div>
+          <span class="hint">Observation — WHO/ISH Risk Chart</span>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Prediksi Risiko PTM (tanpa Lab)</label>
+          <div class="input-group"><input type="number" id="risiko_nolab" min="0" max="100" placeholder="0"><span class="addon">%</span></div>
+          <span class="hint">Observation — Non-Lab Chart</span>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Interpretasi Risiko (Kategori)</label>
+          <select id="kat_risiko"><option value="">— Pilih —</option><option value="rendah">&lt;10% (Rendah)</option><option value="sedang">10–20% (Sedang)</option><option value="tinggi">20–30% (Tinggi)</option><option value="sangat_tinggi">&gt;30% (Sangat Tinggi)</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(9)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(11)">Lanjut: Asam Urat →</button>
+  </div>
+</div>
+
+<!-- STEP 11: ASAM URAT -->
+<div class="step-panel" id="step-11">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Asam Urat</span></div>
+  <div class="page-title"><h2>Deteksi Dini Asam Urat</h2><p>Observation — Pemeriksaan Asam Urat Laboratorium</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e8eaf6">🔬</div><div><h3>Kadar Asam Urat</h3><div class="sub">Observation LOINC 3084-1</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-3 field">
+          <label class="label">Kadar Asam Urat</label>
+          <div class="input-group"><input type="number" id="asam_urat" min="0" step="0.1" placeholder="0.0" oninput="interpretAsamUrat()"><span class="addon">mg/dL</span></div>
+          <span class="hint">LOINC 3084-1</span>
+        </div>
+        <div class="col-3 field">
+          <label class="label">Interpretasi</label>
+          <input type="text" id="au_interp" readonly placeholder="—">
+          <span class="hint">Normal L: &lt;7, P: &lt;6 mg/dL</span>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Keterangan / Gejala</label>
+          <textarea id="au_ket" placeholder="Nyeri sendi, bengkak, dll."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(10)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(12)">Lanjut: Thalasemia →</button>
+  </div>
+</div>
+
+<!-- STEP 12: THALASEMIA -->
+<div class="step-panel" id="step-12">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Thalasemia</span></div>
+  <div class="page-title"><h2>Deteksi Dini Thalasemia</h2><p>Observation — Hematology Analyzer (KMK No.2015/2023)</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#f3e5f5">🩺</div><div><h3>Pemeriksaan Hematologi</h3><div class="sub">Observation LOINC — darah lengkap</div></div></div>
+    <div class="card-body">
+      <table class="lab-table">
+        <thead><tr><th>Parameter</th><th>Nilai</th><th>Satuan</th><th>Nilai Normal</th><th>LOINC</th></tr></thead>
+        <tbody>
+          <tr><td>Hemoglobin (Hb)</td><td><input type="number" id="hb" step="0.1" placeholder="—"></td><td>g/dL</td><td>L: 13–17, P: 12–16</td><td class="hint">718-7</td></tr>
+          <tr><td>MCV</td><td><input type="number" id="mcv" step="0.1" placeholder="—"></td><td>fL</td><td>80–100 fL</td><td class="hint">787-2</td></tr>
+          <tr><td>MCH</td><td><input type="number" id="mch" step="0.1" placeholder="—"></td><td>pg</td><td>27–33 pg</td><td class="hint">785-6</td></tr>
+          <tr><td>Eritrosit / RBC Count</td><td><input type="number" id="rbc" step="0.01" placeholder="—"></td><td>juta/µL</td><td>4.5–5.5</td><td class="hint">789-8</td></tr>
+          <tr><td>RDW (Red Cell Distribution Width)</td><td><input type="number" id="rdw" step="0.1" placeholder="—"></td><td>%</td><td>11.5–14.5%</td><td class="hint">788-0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(11)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(13)">Lanjut: Penyakit Jantung →</button>
+  </div>
+</div>
+
+<!-- STEP 13: JANTUNG -->
+<div class="step-panel" id="step-13">
+  <div class="breadcrumb">Skrining PTM <span>› Deteksi Dini Penyakit Jantung</span></div>
+  <div class="page-title"><h2>Deteksi Dini Penyakit Jantung</h2><p>Observation — EKG (khusus pasien DM atau Hipertensi)</p></div>
+  <div class="alert alert-warn">⚠️ Pemeriksaan ini <strong>khusus</strong> untuk peserta yang memiliki Diabetes Melitus atau Hipertensi.</div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#fde8e8">💓</div><div><h3>Pemeriksaan EKG</h3><div class="sub">Observation LOINC 11524-6 (KMK No.2015/2023)</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 field">
+          <label class="label">Hasil EKG</label>
+          <select id="ekg">
+            <option value="">Tidak dilakukan</option>
+            <option value="normal">Normal Sinus Rhythm</option>
+            <option value="aritmia">Aritmia</option>
+            <option value="lbbb">LBBB</option>
+            <option value="rbbb">RBBB</option>
+            <option value="lvh">LVH (Left Ventricular Hypertrophy)</option>
+            <option value="st_elevasi">ST Elevasi</option>
+            <option value="st_depresi">ST Depresi</option>
+            <option value="afib">Atrial Fibrilasi</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+          <span class="hint">Observation.valueCodeableConcept</span>
+        </div>
+        <div class="col-8 field">
+          <label class="label">Catatan EKG</label>
+          <textarea id="ekg_note" placeholder="Deskripsi temuan EKG, lokasi kelainan, dll."></textarea>
+          <span class="hint">Observation.note</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Irama</label>
+          <input type="text" id="ekg_irama" placeholder="Sinus, AF, dll.">
+        </div>
+        <div class="col-4 field">
+          <label class="label">HR (Frekuensi)</label>
+          <div class="input-group"><input type="number" id="ekg_hr" placeholder="80"><span class="addon">bpm</span></div>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Axis</label>
+          <input type="text" id="ekg_axis" placeholder="Normal / LAD / RAD">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(12)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(14)">Lanjut: Diagnosis &amp; Tindak Lanjut →</button>
+  </div>
+</div>
+
+<!-- STEP 14: DIAGNOSIS -->
+<div class="step-panel" id="step-14">
+  <div class="breadcrumb">Skrining PTM <span>› Diagnosis &amp; Tindak Lanjut</span></div>
+  <div class="page-title"><h2>Diagnosis &amp; Rencana Tindak Lanjut</h2><p>Condition, Procedure, CarePlan, MedicationRequest</p></div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e3f9e5">📝</div><div><h3>Diagnosis</h3><div class="sub">Condition FHIR — kode ICD-10</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8 field">
+          <label class="label">Diagnosis Utama</label>
+          <input type="text" id="dx_utama" placeholder="Misal: Z13.6 – Skrining PTM / E11 – DM Tipe 2">
+          <span class="hint">Condition.code.coding (ICD-10)</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Status Klinis</label>
+          <select id="dx_status"><option value="active">Aktif</option><option value="recurrence">Berulang</option><option value="remission">Remisi</option></select>
+        </div>
+        <div class="col-12 field">
+          <label class="label">Diagnosis Sekunder / Komorbid</label>
+          <textarea id="dx_sekunder" placeholder="Diagnosis tambahan dengan kode ICD-10"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e8f5e9">🏃</div><div><h3>Rencana Tindak Lanjut</h3><div class="sub">CarePlan FHIR</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6 field">
+          <label class="label">Intervensi / Edukasi yang Diberikan</label>
+          <div class="check-grid" style="margin-top:6px">
+            <label class="check-item"><input type="checkbox" id="eduk_gizi"> Edukasi gizi seimbang</label>
+            <label class="check-item"><input type="checkbox" id="eduk_aktfis"> Edukasi aktivitas fisik</label>
+            <label class="check-item"><input type="checkbox" id="eduk_rokok"> Konseling berhenti merokok (UBM)</label>
+            <label class="check-item"><input type="checkbox" id="eduk_htn"> Edukasi tatalaksana hipertensi</label>
+            <label class="check-item"><input type="checkbox" id="eduk_dm"> Edukasi tatalaksana DM</label>
+          </div>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Tindak Lanjut</label>
+          <select id="rtl"><option value="">— Pilih —</option><option value="rawat_jalan">Rawat jalan</option><option value="rujuk_poli">Rujuk ke poli spesialis</option><option value="rujuk_rs">Rujuk ke RS</option><option value="kontrol">Kontrol kembali</option></select>
+          <label class="label" style="margin-top:10px">Jadwal Kontrol Berikutnya</label>
+          <input type="date" id="jadwal_kontrol">
+          <label class="label" style="margin-top:10px">Catatan Tatalaksana</label>
+          <textarea id="catatan_rtl" placeholder="Resep, anjuran, instruksi khusus..."></textarea>
+        </div>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <div class="col-4 field">
+          <label class="label">Kondisi Saat Meninggalkan Fasyankes</label>
+          <select id="kondisi_keluar"><option value="">— Pilih —</option><option value="stabil">Stabil</option><option value="membaik">Membaik</option><option value="dirujuk">Dirujuk</option></select>
+          <span class="hint">Encounter.hospitalization.dischargeDisposition</span>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Cara Keluar Fasyankes</label>
+          <select id="cara_keluar"><option value="">— Pilih —</option><option value="pulang">Pulang sendiri</option><option value="rujuk">Dirujuk</option><option value="diantar">Diantar keluarga</option></select>
+        </div>
+        <div class="col-4 field">
+          <label class="label">Transportasi Rujukan (jika dirujuk)</label>
+          <select id="transport"><option value="">Tidak berlaku</option><option value="ambulan">Ambulans</option><option value="kendaraan_pribadi">Kendaraan pribadi</option><option value="ojek">Ojek/taksi</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(13)">← Kembali</button>
+    <button class="btn btn-primary" onclick="goTo(15)">Lanjut: Ringkasan &amp; Kirim →</button>
+  </div>
+</div>
+
+<!-- STEP 15: RINGKASAN -->
+<div class="step-panel" id="step-15">
+  <div class="breadcrumb">Skrining PTM <span>› Ringkasan &amp; Kirim</span></div>
+  <div class="page-title"><h2>Ringkasan Skrining PTM</h2><p>Composition FHIR — laporan lengkap siap kirim ke SATUSEHAT</p></div>
+
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#e3f9e5">✅</div><div><h3>Status Pengisian</h3><div class="sub">Verifikasi kelengkapan data sebelum pengiriman</div></div></div>
+    <div class="card-body" id="summary-body">
+      <div class="summary-grid" id="summaryGrid"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#fff3e0">📋</div><div><h3>Ringkasan Temuan</h3></div></div>
+    <div class="card-body">
+      <div id="temuanList" style="font-size:13px;color:var(--teks-2);line-height:2"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="icon" style="background:#deebff">🚀</div><div><h3>Composition FHIR</h3><div class="sub">Composition.type — LOINC 74213-0 (Skrining PTM)</div></div></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6 field">
+          <label class="label">Nomor Dokumen</label>
+          <input type="text" id="doc_num" placeholder="auto-generate" readonly>
+        </div>
+        <div class="col-6 field">
+          <label class="label">Tanggal Komposisi</label>
+          <input type="date" id="comp_date">
+        </div>
+        <div class="col-12 field">
+          <label class="label">Catatan Penutup (opsional)</label>
+          <textarea id="catatan_penutup" placeholder="Catatan tambahan dokter/perawat..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-secondary" onclick="goTo(14)">← Kembali</button>
+    <button class="btn btn-primary" onclick="submitForm()" style="background:var(--biru);gap:8px">
+      <span>🚀</span> Kirim ke SATUSEHAT
+    </button>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ===== NAVIGATION =====
+let currentStep = 1;
+const totalSteps = 15;
+
+function goTo(n) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('nav-' + currentStep)?.classList.remove('active');
+  document.getElementById('nav-' + currentStep)?.classList.add('done');
+
+  currentStep = n;
+  document.getElementById('step-' + n).classList.add('active');
+  const navEl = document.getElementById('nav-' + n);
+  if(navEl){ navEl.classList.add('active'); navEl.classList.remove('done'); }
+
+  document.getElementById('progressFill').style.width = ((n/totalSteps)*100) + '%';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  if(n === 15) buildSummary();
+}
+
+// ===== RADIO BUTTONS =====
+document.querySelectorAll('.radio-group').forEach(rg => {
+  rg.querySelectorAll('.radio-btn').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const name = this.querySelector('input').name;
+      document.querySelectorAll(`.radio-btn input[name="${name}"]`).forEach(inp => {
+        inp.closest('.radio-btn').classList.remove('checked');
+      });
+      this.classList.add('checked');
+      this.querySelector('input').checked = true;
+    });
+  });
+});
+
+// ===== KALKULASI IMT =====
+function hitungIMT() {
+  const bb = parseFloat(document.getElementById('bb').value);
+  const tb = parseFloat(document.getElementById('tb').value);
+  if(bb > 0 && tb > 0) {
+    const imt = bb / ((tb/100) ** 2);
+    document.getElementById('imt').value = imt.toFixed(1);
+    let label = '';
+    if(imt < 18.5) label = '🔵 Kurus';
+    else if(imt < 23) label = '🟢 Normal';
+    else if(imt < 27) label = '🟡 Gemuk';
+    else label = '🔴 Obesitas';
+    document.getElementById('imt_interp').value = label;
+  }
+}
+
+function interpretLP() {
+  const jk = document.getElementById('jk').value;
+  const lp = parseFloat(document.getElementById('lp').value);
+  if(!isNaN(lp)) {
+    const batas = jk === 'female' ? 80 : 90;
+    document.getElementById('lp_interp').value = lp >= batas ? '🔴 Berisiko (≥'+batas+' cm)' : '🟢 Normal (<'+batas+' cm)';
+  }
+}
+
+// ===== INTERPRETASI TEKANAN DARAH =====
+function interpretTD() {
+  const s = parseInt(document.getElementById('td_s').value);
+  const d = parseInt(document.getElementById('td_d').value);
+  if(!isNaN(s) && !isNaN(d)) {
+    let label = '';
+    if(s < 120 && d < 80) label = '🟢 Normal';
+    else if(s < 130 && d < 80) label = '🟡 Elevated';
+    else if(s < 140 || d < 90) label = '🟠 Hipertensi Grade 1';
+    else if(s < 180 || d < 110) label = '🔴 Hipertensi Grade 2';
+    else label = '⛔ Krisis Hipertensi';
+    document.getElementById('td_interp').value = label;
+  }
+}
+
+// ===== INTERPRETASI DM =====
+function interpretDM() {
+  const gds = parseFloat(document.getElementById('gds').value);
+  const gdp = parseFloat(document.getElementById('gdp').value);
+  const gd2j = parseFloat(document.getElementById('gd2j').value);
+  const hba1c = parseFloat(document.getElementById('hba1c').value);
+
+  if(!isNaN(gds)) {
+    document.getElementById('gds_i').value = gds < 140 ? '🟢 Normal' : gds < 200 ? '🟡 Pra-DM' : '🔴 DM';
+  }
+  if(!isNaN(gdp)) {
+    document.getElementById('gdp_i').value = gdp < 100 ? '🟢 Normal' : gdp < 126 ? '🟡 Pra-DM' : '🔴 DM';
+  }
+  if(!isNaN(gd2j)) {
+    document.getElementById('gd2j_i').value = gd2j < 140 ? '🟢 Normal' : gd2j < 200 ? '🟡 Pra-DM' : '🔴 DM';
+  }
+  if(!isNaN(hba1c)) {
+    document.getElementById('hba1c_i').value = hba1c < 5.7 ? '🟢 Normal' : hba1c < 6.5 ? '🟡 Pra-DM' : '🔴 DM';
+  }
+}
+
+// ===== INTERPRETASI LIPID =====
+function interpretLipid() {
+  const kt = parseFloat(document.getElementById('koltot').value);
+  if(!isNaN(kt)) {
+    document.getElementById('koltot_i').value = kt < 200 ? '🟢 Normal' : kt < 240 ? '🟡 Borderline' : '🔴 Tinggi';
+  }
+}
+function interpretLDL() {
+  const ldl = parseFloat(document.getElementById('ldl').value);
+  if(!isNaN(ldl)) {
+    document.getElementById('ldl_i').value = ldl < 100 ? '🟢 Optimal' : ldl < 130 ? '🟡 Near Optimal' : ldl < 160 ? '🟠 Borderline' : '🔴 Tinggi';
+  }
+}
+function interpretTG() {
+  const tg = parseFloat(document.getElementById('tg').value);
+  if(!isNaN(tg)) {
+    document.getElementById('tg_i').value = tg < 150 ? '🟢 Normal' : tg < 200 ? '🟡 Borderline' : tg < 500 ? '🔴 Tinggi' : '⛔ Sangat Tinggi';
+  }
+}
+
+// ===== ASAM URAT =====
+function interpretAsamUrat() {
+  const jk = document.getElementById('jk').value;
+  const val = parseFloat(document.getElementById('asam_urat').value);
+  if(!isNaN(val)) {
+    const batas = jk === 'female' ? 6 : 7;
+    document.getElementById('au_interp').value = val > batas ? '🔴 Hiperurisemia (>'+batas+' mg/dL)' : '🟢 Normal (≤'+batas+' mg/dL)';
+  }
+}
+
+// ===== IVA POSITIF TOGGLE =====
+document.getElementById('iva').addEventListener('change', function() {
+  document.getElementById('iva_tindak').style.display = this.value === 'positif' ? 'block' : 'none';
+});
+
+// ===== SUMMARY =====
+function buildSummary() {
+  // Auto doc number
+  document.getElementById('doc_num').value = 'PTM-' + Date.now().toString(36).toUpperCase();
+  const today = new Date().toISOString().split('T')[0];
+  if(!document.getElementById('comp_date').value) document.getElementById('comp_date').value = today;
+
+  const items = [
+    {label:'Nama Pasien', val: document.getElementById('nama').value || '—'},
+    {label:'NIK', val: document.getElementById('nik').value || '—'},
+    {label:'Tanggal Skrining', val: document.getElementById('tgl_skrining').value || '—'},
+    {label:'Pemeriksa', val: document.getElementById('pemeriksa').value || '—'},
+    {label:'IMT', val: document.getElementById('imt').value ? document.getElementById('imt').value + ' kg/m²' : '—'},
+    {label:'Tekanan Darah', val: (document.getElementById('td_s').value && document.getElementById('td_d').value) ? document.getElementById('td_s').value+'/'+document.getElementById('td_d').value+' mmHg' : '—'},
+    {label:'GDS', val: document.getElementById('gds').value ? document.getElementById('gds').value+' mg/dL' : '—'},
+    {label:'Kolesterol Total', val: document.getElementById('koltot').value ? document.getElementById('koltot').value+' mg/dL' : '—'},
+    {label:'Asam Urat', val: document.getElementById('asam_urat').value ? document.getElementById('asam_urat').value+' mg/dL' : '—'},
+    {label:'Diagnosis', val: document.getElementById('dx_utama').value || '—'},
+  ];
+
+  document.getElementById('summaryGrid').innerHTML = items.map(i =>
+    `<div class="summary-item"><div class="s-label">${i.label}</div><div class="s-value">${i.val}</div></div>`
+  ).join('');
+
+  // Temuan
+  let temuan = [];
+  const tdInterp = document.getElementById('td_interp').value;
+  if(tdInterp && tdInterp.includes('Hipertensi')) temuan.push('⚠️ <b>'+tdInterp+'</b> — tindak lanjut sesuai panduan');
+  const imtInterp = document.getElementById('imt_interp').value;
+  if(imtInterp && (imtInterp.includes('Gemuk') || imtInterp.includes('Obesitas'))) temuan.push('⚠️ IMT: <b>'+imtInterp+'</b>');
+  const gdsInterp = document.getElementById('gds_i').value;
+  if(gdsInterp && gdsInterp.includes('DM')) temuan.push('⚠️ GDS: <b>'+gdsInterp+'</b>');
+  if(document.getElementById('iva').value === 'positif') temuan.push('🔴 <b>IVA Positif</b> — perlu tindak lanjut');
+  if(temuan.length === 0) temuan.push('✅ Tidak ada temuan kritis berdasarkan data yang diisi');
+  document.getElementById('temuanList').innerHTML = temuan.join('<br>');
+}
+
+function submitForm() {
+  const btn = document.querySelector('[onclick="submitForm()"]');
+  btn.innerHTML = '⏳ Mengirim data...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.innerHTML = '✅ Data berhasil dikirim ke SATUSEHAT!';
+    btn.style.background = 'var(--hijau)';
+    btn.disabled = false;
+    document.querySelector('.card:last-of-type .card-body').insertAdjacentHTML('beforeend',
+      '<div class="alert alert-info" style="margin-top:14px">📤 Composition FHIR telah dibuat. Resource: <code>Encounter, QuestionnaireResponse (Q0013/Q0021/Q0019/Q0020), Observation, Condition, Procedure, Composition</code> berhasil terkirim ke endpoint SATUSEHAT Sandbox.</div>');
+  }, 1500);
+}
+
+// Init date
+document.getElementById('tgl_skrining').value = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
