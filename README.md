@@ -246,17 +246,9 @@ DB_PASSWORD=
 php artisan key:generate
 ```
 
-### 6. Migrasi Database
 
-```bash
-php artisan migrate
-```
 
-Apabila project membutuhkan data awal:
 
-```bash
-php artisan db:seed
-```
 
 ### 7. Jalankan Backend
 
